@@ -9,7 +9,7 @@ import UIKit
 /*..........
  list of all players
  .........*/
-var players = [
+let players = [
     ["name": "Joe Smith","height": "42", "experience": "yes", "guardian": "Jim and Jan Smith"],
     ["name": "Jill Tanner","height": "36", "experience": "yes", "guardian": "Clara Tanner"],
     ["name": "Bill Bon","height": "43", "experience": "yes", "guardian": "Sara and Jenny Bon"],
