@@ -4,9 +4,11 @@ import UIKit
 
 /*
  Manually create a single collection named 'players' that contains all information for all 18 players. Each player must themselves be represented by a Dictionary with String keys and the corresponding values.
- 
- list of all players
  */
+
+/*..........
+ list of all players
+ .........*/
 var players = [
     ["name": "Joe Smith","height": "42", "experience": "yes", "guardian": "Jim and Jan Smith"],
     ["name": "Jill Tanner","height": "36", "experience": "yes", "guardian": "Clara Tanner"],
@@ -31,10 +33,10 @@ var players = [
 /*
  Create appropriate variables and logic to sort and store players into three teams: Sharks, Dragons and Raptors. Store the players for each team in collection variables named 'teamSharks', 'teamDragons', and 'teamRaptors'. Be sure that your logic results in all teams having the same number of experienced players on each.
  */
+
 /*..........
  variables
  .........*/
-
 var teamSharks: [Dictionary<String, String>] = []
 var teamDragons: [Dictionary<String, String>] = []
 var teamRaptors: [Dictionary<String, String>] = []
@@ -45,16 +47,26 @@ var noExpCount = 1
  function for assigning players to teams
  takes in the count number and the player
  then assigns it to whichever team is next 
- in the loop
+ in the loop. also assigns new team and
+ practice times to players dictionary
  .......................................*/
 
 func assignPlayer(counter: Int, person: [String : String]){
     if (counter % 3 == 1){
-        teamSharks.append(person)
+        var i = person
+        i["team"] = "Sharks"
+        i["firstPractice"] = "March 17, 3pm"
+        teamSharks.append(i)
     } else if (counter % 3 == 2){
-        teamDragons.append(person)
+        var i = person
+        i["team"] = "Dragons"
+        i["firstPractice"] = "March 17, 1pm"
+        teamDragons.append(i)
     } else if (counter % 3 == 0){
-        teamRaptors.append(person)
+        var i = person
+        i["team"] = "Raptors"
+        i["firstPractice"] = "March 18, 1pm"
+        teamRaptors.append(i)
     }
 }
 
@@ -66,8 +78,6 @@ func assignPlayer(counter: Int, person: [String : String]){
  player to next team in line. same with
  noExp players
  .......................................*/
-
-
 for player in players {
     switch (player["experience"]!){
     case "yes":
@@ -86,10 +96,22 @@ for player in players {
 */
 
 /*.................................
- function to build a message based
- on input from specific teams
+ assigning all players with new
+ team data into new variable
  ................................*/
+var allPlayersFinal = teamRaptors + teamSharks + teamDragons
 
+/*.............................
+ variable for assigning custom 
+ letters for parents
+ ............................*/
+var letters: [String] = []
+
+/*.................................
+ function to build a message based
+ on input for players from specific 
+ teams
+ ................................*/
 func printLetters(playerName: String, playerGuard: String, playerTeam: String, teamSchedule: String) -> String{
     var messageToParents = ""
     messageToParents = "Dear \(playerGuard), \(playerName) has been assigned to the team \(playerTeam)! Practices will begin on \(teamSchedule) and we look forward to seeing you soon. Go \(playerTeam)!!"
@@ -98,19 +120,23 @@ func printLetters(playerName: String, playerGuard: String, playerTeam: String, t
 
 /*.....................................
  custom messages for printLetters func
+ takes keys of players and assigns the
+ value to make custom message for 
+ letters array
  ....................................*/
 
-for member in teamSharks {
-    var sharksMessage = printLetters(playerName: member["name"]!, playerGuard: member["guardian"]!, playerTeam: "Sharks", teamSchedule: "March 17, 3pm")
-    print(sharksMessage)
+for player in allPlayersFinal {
+    var letterMessage = printLetters(playerName: player["name"]!, playerGuard: player["guardian"]!, playerTeam: player["team"]!, teamSchedule: player["firstPractice"]!)
+    letters.append(letterMessage)
 }
-for member in teamDragons {
-    var dragonsMessage = printLetters(playerName: member["name"]!, playerGuard: member["guardian"]!, playerTeam: "Dragons", teamSchedule: "March 17, 1pm")
-    print(dragonsMessage)
+
+/*..........................
+ print final letter of each 
+ player into the console
+ .........................*/
+for letter in letters {
+    print(letter)
 }
-for member in teamRaptors {
-    var raptorsMessage  = printLetters(playerName: member["name"]!, playerGuard: member["guardian"]!, playerTeam: "Raptors", teamSchedule: "March 18, 1pm")
-    print(raptorsMessage)
-}
+
 
 
